@@ -1,0 +1,113 @@
+import { VerticalBox, ListView, LineEdit } from "std-widgets.slint";
+
+export struct AppEntry {
+    name: string,
+    description: string,
+    icon: string,
+}
+
+export component AppWindow inherits Window {
+    in-out property <[AppEntry]> apps;
+    
+    callback search(string);
+    callback launch-app(string);
+    callback close();
+    
+    preferred-width: 600px;
+    preferred-height: 500px;
+    background: #1e1e2e;
+    
+    VerticalBox {
+        padding: 20px;
+        spacing: 15px;
+        
+        // Search bar
+        Rectangle {
+            height: 50px;
+            background: #313244;
+            border-radius: 10px;
+            
+            HorizontalLayout {
+                padding: 12px;
+                
+                search-input := LineEdit {
+                    placeholder-text: "Search applications...";
+                    font-size: 16px;
+                    
+                    edited => {
+                        root.search(self.text);
+                    }
+                    
+                    accepted => {
+                        // Launch first app on Enter
+                        if (root.apps.length > 0) {
+                            root.launch-app(root.apps[0].name);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // App list
+        Rectangle {
+            background: transparent;
+            
+            ListView {
+                for app[index] in root.apps: Rectangle {
+                    height: 60px;
+                    background: touch-area.has-hover ? #45475a : transparent;
+                    border-radius: 8px;
+                    
+                    touch-area := TouchArea {
+                        clicked => {
+                            root.launch-app(app.name);
+                        }
+                    }
+                    
+                    HorizontalLayout {
+                        padding: 10px;
+                        spacing: 15px;
+                        
+                        // Icon placeholder
+                        Rectangle {
+                            width: 40px;
+                            height: 40px;
+                            background: #585b70;
+                            border-radius: 6px;
+                        }
+                        
+                        // App info
+                        VerticalLayout {
+                            alignment: center;
+                            
+                            Text {
+                                text: app.name;
+                                color: #cdd6f4;
+                                font-size: 14px;
+                                font-weight: 600;
+                            }
+                            
+                            if app.description != "": Text {
+                                text: app.description;
+                                color: #a6adc8;
+                                font-size: 11px;
+                                overflow: elide;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Results count
+        Text {
+            text: root.apps.length + " apps";
+            color: #6c7086;
+            font-size: 12px;
+            horizontal-alignment: center;
+        }
+    }
+    
+    // ESC to close
+    forward-focus: search-input;
+}
