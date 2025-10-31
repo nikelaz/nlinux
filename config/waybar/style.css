@@ -1,0 +1,85 @@
+* {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+    padding: 0;
+    color: #fff;
+}
+
+#waybar {
+    background: transparent;
+    margin: 0;
+}
+
+#workspaces {
+    background-color: #000;
+    padding: 0.4rem 1rem;
+    margin: 5px 5px 0 10px;
+    border-radius: 7px;
+    min-width: 0;
+    border: none;
+}
+
+#workspaces button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin: 0 2px;
+}
+
+#workspaces button label {
+  font-size: 12px;
+  color: #666;
+}
+
+#workspaces button.visible {
+  color: #fff;
+}
+
+#workspaces button.visible label {
+  color: #fff;
+}
+
+#workspaces button:hover {
+  background: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+#clock {
+    background-color: #000;
+    padding: 0.4rem 1rem;
+    margin: 5px 5px 0 0;
+    border-radius: 7px;
+    min-width: 0;
+    border: none;
+    font-size: 15px;
+}
+
+#cpu {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  padding-left: 1rem;
+}
+
+#pulseaudio.module.output {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  margin-right: 10px;
+  padding-right: 1rem;
+}
+
+#cpu,
+#memory,
+#bluetooth,
+#network,
+#pulseaudio.module.output,
+#pulseaudio.module.input {
+    background-color: #000;
+    padding: 0.4rem 0.8rem;
+    margin-top: 5px;
+    min-width: 0;
+    border: none;
+    font-size: 15px;
+}

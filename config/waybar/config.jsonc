@@ -1,0 +1,111 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["sway/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "bluetooth",
+    "network",
+    "pulseaudio#input",
+    "pulseaudio#output"
+  ],
+
+  "sway/workspaces": {
+		"all-outputs": true,
+		"disable-scroll": true,
+		"format": "{icon}",
+		"format-icons": {
+			"focused": "",
+			"default": ""
+		},
+		"persistent-workspaces": {
+			"1": [],
+			"2": [],
+			"3": [],
+			"4": [],
+			"5": []
+		}
+	}, 
+
+  "clock": {
+    "format": "{:%A %b %d %R}"
+  },
+
+  "cpu": {
+    "interval": 1,
+    "format": "CPU: {usage:>2}%"
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": "{used:0.1f} GB / {total:0.1f} GB"
+  },
+
+  "network": {
+    "interval": 10,
+    "format": "󰤨",
+    "format-ethernet": "󰈀",
+    "format-wifi": "{icon}",
+    "format-disconnected": "󰤯",
+    "format-disabled": "󰤮",
+    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+    "min-length": 2,
+    "max-length": 2,
+    "on-click": "ghostty -e impala",
+    "on-click-right": "nmcli radio wifi off && notify-send 'Wi-Fi Disabled' -i 'network-wireless-off' -r 1125",
+    "tooltip-format": "Gateway: {gwaddr}",
+    "tooltip-format-ethernet": "Interface: {ifname}",
+    "tooltip-format-wifi": "Network: {essid}\nIP Addr: {ipaddr}/{cidr}\nStrength: {signalStrength}%\nFrequency: {frequency} GHz",
+    "tooltip-format-disconnected": "Wi-Fi Disconnected",
+    "tooltip-format-disabled": "Wi-Fi Disabled"
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂰",
+    "format-connected": "󰂱",
+    "min-length": 2,
+    "max-length": 2,
+    "on-click": "ghostty -e bluetui",
+    "on-click-right": "bluetoothctl power off && notify-send 'Bluetooth Off' -i 'network-bluetooth-inactive' -r 1925",
+    "tooltip-format": "Device Addr: {device_address}",
+    "tooltip-format-disabled": "Bluetooth Disabled",
+    "tooltip-format-off": "Bluetooth Off",
+    "tooltip-format-on": "Bluetooth Disconnected",
+    "tooltip-format-connected": "Device: {device_alias}",
+    "tooltip-format-enumerate-connected": "Device: {device_alias}",
+    "tooltip-format-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%",
+    "tooltip-format-enumerate-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%"
+  },
+
+  "pulseaudio#input": {
+    "class": "audio-input",
+    "format-source": " {volume}%",
+    "format-source-muted": " off",
+    "format": "{format_source}",
+    "scroll-step": 1,
+    "smooth-scrolling-threshold": 1,
+    "max-volume": 100,
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-click-middle": "pavucontrol",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
+  },
+
+  "pulseaudio#output": {
+    "format": "{icon} {volume}%",
+    "format-muted": " off",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "max-volume": 100,
+    "scroll-step": 2,
+    "smooth-scrolling-threshold": 1,
+    "on-click": "pavucontrol",
+    "on-click-middle": "pavucontrol"
+  }
+}
